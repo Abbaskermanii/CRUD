@@ -16,7 +16,7 @@ function Navbar() {
         </div>
       </div>
       <div className="navbar-end">
-        <a className="btn btn-primary">Button</a>
+        <a className="btn btn-primary">Add User</a>
       </div>
     </div>
   );

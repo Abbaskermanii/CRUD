@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import ModalFrom from "./ModalDelte";
+import { useState } from "react";
+import ModalDelete from "./modal/ModalDelete";
+import ModalUpdate from "./modal/ModalUpdate";
 
 function TableList() {
   const clients = [
@@ -10,6 +11,7 @@ function TableList() {
       job: "musician",
       rete: "100",
       isactive: true,
+      password: "1234"
     },
     {
       id: 2,
@@ -18,6 +20,7 @@ function TableList() {
       job: "singer",
       rete: "100",
       isactive: true,
+      password: "1234"
     },
     {
       id: 3,
@@ -26,13 +29,27 @@ function TableList() {
       job: "musician",
       rete: "90",
       isactive: false,
+      password: "1234"
     },
   ];
+
+  const [remove, setRemove] = useState(false);
+  const [update, setUpdate] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const removeHandeler = (client) => {
+    setUser(client);
+    setRemove(true);
+  };
+
+  const updateHandeler = (client) => {
+    setUser(client);
+    setUpdate(true);
+  };
 
   return (
     <div className="overflow-x-auto mt-10">
       <table className="table">
-        {/* head */}
         <thead>
           <tr>
             <th>id</th>
@@ -61,15 +78,27 @@ function TableList() {
                 </button>
               </td>
               <td>
-                <button className="btn btn-secondary">Update</button>
+                <button
+                  onClick={() => updateHandeler(client)}
+                  className="btn btn-secondary"
+                >
+                  Update
+                </button>
               </td>
               <td>
-                <button className="btn btn-accent">Delete</button>
+                <button
+                  onClick={() => removeHandeler(client)}
+                  className="btn btn-accent"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <ModalDelete remove={remove} setRemove={setRemove} user={user} />
+      <ModalUpdate update={update} setUpdate={setUpdate} user={user} />
     </div>
   );
 }

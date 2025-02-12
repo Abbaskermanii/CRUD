@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ModalDelete from "./modal/ModalDelete";
 import ModalUpdate from "./modal/ModalUpdate";
+import ModalAddUser from "./modal/ModalAddUser";
 
 function TableList() {
   const clients = [
@@ -11,7 +12,7 @@ function TableList() {
       job: "musician",
       rete: "100",
       isactive: true,
-      password: "1234"
+      password: "1234",
     },
     {
       id: 2,
@@ -20,7 +21,7 @@ function TableList() {
       job: "singer",
       rete: "100",
       isactive: true,
-      password: "1234"
+      password: "1234",
     },
     {
       id: 3,
@@ -29,13 +30,14 @@ function TableList() {
       job: "musician",
       rete: "90",
       isactive: false,
-      password: "1234"
+      password: "1234",
     },
   ];
 
   const [remove, setRemove] = useState(false);
   const [update, setUpdate] = useState(false);
   const [user, setUser] = useState(null);
+  const [addUser, setAddUser] = useState();
 
   const removeHandeler = (client) => {
     setUser(client);

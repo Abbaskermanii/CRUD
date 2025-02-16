@@ -1,43 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalDelete from "./modal/ModalDelete";
 import ModalUpdate from "./modal/ModalUpdate";
-import ModalAddUser from "./modal/ModalAddUser";
+import axios from "axios";
 
 function TableList() {
-  const clients = [
-    {
-      id: 1,
-      name: "jalal zolfonon",
-      email: "jalal-zoli@gmail.com",
-      job: "musician",
-      rete: "100",
-      isactive: true,
-      password: "1234",
-    },
-    {
-      id: 2,
-      name: "shaeram nazeri",
-      email: "shahram@gmail.com",
-      job: "singer",
-      rete: "100",
-      isactive: true,
-      password: "1234",
-    },
-    {
-      id: 3,
-      name: "hosein alizadeh",
-      email: "alizadeh@gmail.com",
-      job: "musician",
-      rete: "90",
-      isactive: false,
-      password: "1234",
-    },
-  ];
-
   const [remove, setRemove] = useState(false);
   const [update, setUpdate] = useState(false);
   const [user, setUser] = useState(null);
-  const [addUser, setAddUser] = useState();
+  const [clients, setClients] = useState([]);
+
+  useEffect(() => {
+    const url = import.meta.env.VITE_BASE_URL;
+    axios
+      .get(`${url}/users`)
+      .then((res) => {
+        console.log(res);
+        setClients(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const removeHandeler = (client) => {
     setUser(client);
@@ -66,10 +49,10 @@ function TableList() {
           {clients.map((client) => (
             <tr key={client.id}>
               <th>{client.id}</th>
-              <td>{client.name}</td>
+              <td>{client.username}</td>
               <td>{client.email}</td>
               <td>{client.job}</td>
-              <td>{client.rete}</td>
+              <td>{client.rate}</td>
               <td>
                 <button
                   className={`btn rounded-full w-20  ${
